@@ -153,6 +153,9 @@ roundy_precmd() {
 
   roundy_draw_gap
   roundy_draw_prompts
+
+  # Force-reset raw time execution command
+  Roundy[raw_texec]=0
 }
 
 #
