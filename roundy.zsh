@@ -41,6 +41,9 @@ Roundy[root]="${0:A:h}"
 : ${ROUNDY_COLORS_FG_GITINFO:=0}
 : ${ROUNDY_COLORS_BG_GITINFO:=5}
 
+# Option whether drawing a gap between a prompt
+: ${ROUNDY_PROMPT_HAS_GAP:=true}
+
 #
 # Get information from active git repo
 #
@@ -129,7 +132,17 @@ roundy_draw_prompts() {
   typeset -g RPROMPT=${Roundy[rprompt]}
 }
 
+roundy_draw_gap() {
+  if [[ $ROUNDY_PROMPT_HAS_GAP == true ]]; then
+    [[ -n ${Roundy[draw_gap]} ]] && print
+    Roundy[draw_gap]=1
+  fi
+}
+
 roundy_preexec() {
+  # disable gap when clearing term
+  [[ "$1" == (clear|reset) ]] && Roundy[draw_gap]=
+
   # Record Time of execution for roundy_get_texec
   Roundy[raw_texec]=$EPOCHSECONDS
 }
@@ -138,6 +151,7 @@ roundy_precmd() {
   Roundy[data_git]=$(roundy_get_gitinfo)
   Roundy[data_texc]=$(roundy_get_texec)
 
+  roundy_draw_gap
   roundy_draw_prompts
 }
 
