@@ -29,6 +29,9 @@ Roundy[root]="${0:A:h}"
 # Color definition for Active user name
 : ${ROUNDY_COLORS_FG_USER:=7}
 : ${ROUNDY_COLORS_BG_USER:=8}
+# Options to override username info
+: ${ROUNDY_USER_CONTENT_NORMAL:=" %n "}
+: ${ROUNDY_USER_CONTENT_ROOT:=" %n "}
 
 # Color definition for Active directory name
 : ${ROUNDY_COLORS_FG_DIR:=4}
@@ -109,7 +112,7 @@ roundy_draw_prompts() {
   if [[ -n "${Roundy[data_texc]}" ]]; then
     Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_TEXC}}%F{${ROUNDY_COLORS_FG_TEXC}} ${Roundy[data_texc]} %f%k"
   fi
-  Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_USER}}%F{${ROUNDY_COLORS_FG_USER}} %n %f%k"
+  Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_USER}}%F{${ROUNDY_COLORS_FG_USER}}%(#.${ROUNDY_USER_CONTENT_ROOT}.${ROUNDY_USER_CONTENT_NORMAL})%f%k"
   Roundy[lprompt]+="%F{${ROUNDY_COLORS_BG_USER}}${char_close}%f $exitstatuswr2"
 
   # Right Prompt
