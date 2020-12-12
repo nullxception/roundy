@@ -18,7 +18,7 @@ Roundy[root]="${0:A:h}"
 : ${ROUNDY_EXITSTATUS_GOOD:=$'\ufadf'}
 : ${ROUNDY_EXITSTATUS_BAD:=$'\uf658'}
 # Enable EXITSTATUS workaround glitch
-: ${ROUNDY_EXITSTATUS_ICONFIX:=false}
+: ${ROUNDY_EXITSTATUS_ICONFIX:=true}
 
 # Options and Color definition for Time Execution Command
 : ${ROUNDY_COLORS_FG_TEXC:=0}
