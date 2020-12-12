@@ -36,6 +36,9 @@ Roundy[root]="${0:A:h}"
 # Color definition for Active directory name
 : ${ROUNDY_COLORS_FG_DIR:=4}
 : ${ROUNDY_COLORS_BG_DIR:=8}
+# Working Directory Info Mode
+# Valid choice are : "full", "short", or "dir-only"
+: ${ROUNDY_DIR_MODE:="dir-only"}
 
 # Color definition for Git info
 : ${ROUNDY_COLORS_FG_GITINFO:=0}
@@ -93,6 +96,33 @@ roundy_get_texec() {
 }
 
 #
+# Working Directory Info
+#
+roundy_get_dir() {
+  local dir
+
+  case "$ROUNDY_DIR_MODE" in
+    full)
+      dir='%~'
+      ;;
+    short)
+      if which sed >/dev/null 2>&1; then
+        dir=$(print -P '%~' | sed "s#\([^a-z]*[a-z]\)[^/]*/#\1/#g")
+      else
+        # fallback to full mode when there's no sed
+        #
+        dir='%~'
+      fi
+      ;;
+    dir-only|*)
+      dir='%1~'
+      ;;
+  esac
+
+  printf ' %s ' "$dir"
+}
+
+#
 # THE PROMPT
 #
 
@@ -120,7 +150,7 @@ roundy_draw_prompts() {
 
   # Right Prompt
   Roundy[rprompt]="%F{${ROUNDY_COLORS_BG_DIR}}${char_open}%f%K{${ROUNDY_COLORS_BG_DIR}}"
-  Roundy[rprompt]+="%F{${ROUNDY_COLORS_FG_DIR}} %1~ %f"
+  Roundy[rprompt]+="%F{${ROUNDY_COLORS_FG_DIR}}${Roundy[data_dir]}%f"
   cl_close=${ROUNDY_COLORS_BG_DIR}
   if [[ -n "${Roundy[data_git]}" ]]; then
     Roundy[rprompt]+="%K{${ROUNDY_COLORS_BG_GITINFO}}%F{${ROUNDY_COLORS_FG_GITINFO}}${Roundy[data_git]}%f"
@@ -148,6 +178,7 @@ roundy_preexec() {
 }
 
 roundy_precmd() {
+  Roundy[data_dir]=$(roundy_get_dir)
   Roundy[data_git]=$(roundy_get_gitinfo)
   Roundy[data_texc]=$(roundy_get_texec)
 

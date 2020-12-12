@@ -51,6 +51,14 @@ ROUNDY_TEXC_MIN_MS=5
 ROUNDY_USER_CONTENT_NORMAL=" %n "
 ROUNDY_USER_CONTENT_ROOT=" %n "
 
+# Working Directory Info Mode
+# Valid choice are : "full", "short", or "dir-only"
+# Example Output
+#   full     : /etc/httpd/conf/extra
+#   short    : /e/h/c/extra
+#   dir-only : extra
+ROUNDY_DIR_MODE="dir-only"
+
 # Whether drawing a gap between a prompt
 ROUNDY_PROMPT_HAS_GAP=true
 ```
