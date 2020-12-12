@@ -173,11 +173,13 @@ roundy_plugin_unload() {
   add-zsh-hook -D precmd roundy_precmd
 
   unfunction \
+    roundy_draw_gap \
+    roundy_draw_prompts \
     roundy_get_gitinfo \
+    roundy_get_texec \
     roundy_moment \
     roundy_precmd \
-    roundy_preexec \
-    roundy_draw_prompts
+    roundy_preexec
 
   unset \
     ROUNDY_COLORS_BG_DIR \
@@ -190,7 +192,13 @@ roundy_plugin_unload() {
     ROUNDY_COLORS_FG_GITINFO \
     ROUNDY_COLORS_FG_TEXC \
     ROUNDY_COLORS_FG_USER \
+    ROUNDY_EXITSTATUS_BAD \
+    ROUNDY_EXITSTATUS_GOOD \
+    ROUNDY_EXITSTATUS_ICONFIX \
+    ROUNDY_PROMPT_HAS_GAP \
     ROUNDY_TEXC_MIN_MS \
+    ROUNDY_USER_CONTENT_NORMAL \
+    ROUNDY_USER_CONTENT_ROOT \
     Roundy
 
   unfunction $0
