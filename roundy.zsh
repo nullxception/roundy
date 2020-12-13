@@ -5,7 +5,7 @@
 0=${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}
 0=${${(M)0:#/*}:-$PWD/$0}
 typeset -gA Roundy
-Roundy[root]="${0:A:h}"
+Roundy[root]=${0:A:h}
 
 #
 # Options
