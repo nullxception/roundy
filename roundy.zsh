@@ -51,6 +51,7 @@ Roundy[root]=${0:A:h}
 # Get information from active git repo
 #
 roundy_get_gitinfo() {
+  cd -q "$1"
   local ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
 
   case $? in
@@ -209,8 +210,12 @@ roundy_preexec() {
 
 roundy_precmd() {
   Roundy[data_dir]=$(roundy_get_dir)
-  Roundy[data_gitinfo]=$(roundy_get_gitinfo)
   Roundy[data_texc]=$(roundy_get_texc)
+  if (( ${Roundy[do_async]} )); then
+    async_job roundyworker roundy_get_gitinfo "$PWD"
+  else
+    Roundy[data_gitinfo]=$(roundy_get_gitinfo "$PWD")
+  fi
 
   roundy_draw_gap
   roundy_draw_prompts
