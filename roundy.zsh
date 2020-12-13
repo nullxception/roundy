@@ -51,13 +51,15 @@ Roundy[root]=${0:A:h}
 # Get information from active git repo
 #
 roundy_get_gitinfo() {
+  type git &>/dev/null || return
+
   cd -q "$1"
-  local ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
+  local ref=$(git symbolic-ref --quiet HEAD 2>/dev/null)
 
   case $? in
     128) return ;;  # not a git repo
     0) ;;
-    *) ref=$(git rev-parse --short HEAD 2> /dev/null) || return ;; # HEAD is in detached state ?
+    *) ref=$(git rev-parse --short HEAD 2>/dev/null) || return ;; # HEAD is in detached state ?
   esac
 
   if [[ -n $ref ]]; then
@@ -107,7 +109,7 @@ roundy_get_dir() {
       dir='%~'
       ;;
     short)
-      if which sed >/dev/null 2>&1; then
+      if type sed &>/dev/null; then
         dir=$(print -P '%~' | sed "s#\([^a-z]*[a-z]\)[^/]*/#\1/#g")
       else
         # fallback to full mode when there's no sed
@@ -175,7 +177,7 @@ roundy_draw_gap() {
 #
 roundy_async_init() {
   # Load async library
-  async_init 2> /dev/null || {
+  async_init 2>/dev/null || {
     source "${Roundy[root]}/lib/async.zsh"
     async_init
   }
