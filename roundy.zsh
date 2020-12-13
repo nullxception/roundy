@@ -86,9 +86,9 @@ roundy_moment() {
 #
 # Manage time of command execution
 #
-roundy_get_texec() {
-  if (( ROUNDY_TEXC_MIN_MS )) && (( ${Roundy[raw_texec]} )); then
-    local duration=$(( EPOCHSECONDS - ${Roundy[raw_texec]} ))
+roundy_get_texc() {
+  if (( ROUNDY_TEXC_MIN_MS )) && (( ${Roundy[raw_texc]} )); then
+    local duration=$(( EPOCHSECONDS - ${Roundy[raw_texc]} ))
     if (( duration >= ROUNDY_TEXC_MIN_MS )); then
       roundy_moment $duration
     fi
@@ -152,8 +152,8 @@ roundy_draw_prompts() {
   Roundy[rprompt]="%F{${ROUNDY_COLORS_BG_DIR}}${char_open}%f%K{${ROUNDY_COLORS_BG_DIR}}"
   Roundy[rprompt]+="%F{${ROUNDY_COLORS_FG_DIR}}${Roundy[data_dir]}%f"
   cl_close=${ROUNDY_COLORS_BG_DIR}
-  if [[ -n "${Roundy[data_git]}" ]]; then
-    Roundy[rprompt]+="%K{${ROUNDY_COLORS_BG_GITINFO}}%F{${ROUNDY_COLORS_FG_GITINFO}}${Roundy[data_git]}%f"
+  if [[ -n "${Roundy[data_gitinfo]}" ]]; then
+    Roundy[rprompt]+="%K{${ROUNDY_COLORS_BG_GITINFO}}%F{${ROUNDY_COLORS_FG_GITINFO}}${Roundy[data_gitinfo]}%f"
     cl_close=${ROUNDY_COLORS_BG_GITINFO}
   fi
   Roundy[rprompt]+="%k%F{${cl_close}}${char_close}%f"
@@ -173,20 +173,20 @@ roundy_preexec() {
   # disable gap when clearing term
   [[ "$1" == (clear|reset) ]] && Roundy[draw_gap]=
 
-  # Record Time of execution for roundy_get_texec
-  Roundy[raw_texec]=$EPOCHSECONDS
+  # Record Time of execution for roundy_get_texc
+  Roundy[raw_texc]=$EPOCHSECONDS
 }
 
 roundy_precmd() {
   Roundy[data_dir]=$(roundy_get_dir)
-  Roundy[data_git]=$(roundy_get_gitinfo)
-  Roundy[data_texc]=$(roundy_get_texec)
+  Roundy[data_gitinfo]=$(roundy_get_gitinfo)
+  Roundy[data_texc]=$(roundy_get_texc)
 
   roundy_draw_gap
   roundy_draw_prompts
 
   # Force-reset raw time execution command
-  Roundy[raw_texec]=0
+  Roundy[raw_texc]=0
 }
 
 #
@@ -207,7 +207,7 @@ roundy_plugin_unload() {
     roundy_draw_gap \
     roundy_draw_prompts \
     roundy_get_gitinfo \
-    roundy_get_texec \
+    roundy_get_txec \
     roundy_moment \
     roundy_precmd \
     roundy_preexec
