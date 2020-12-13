@@ -243,6 +243,7 @@ roundy_plugin_unload() {
     roundy_async_callback \
     roundy_draw_gap \
     roundy_draw_prompts \
+    roundy_get_dir \
     roundy_get_gitinfo \
     roundy_get_txec \
     roundy_moment \
