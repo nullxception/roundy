@@ -175,11 +175,8 @@ roundy_async_init() {
   }
 
   # Setup worker and callback
-  Roundy[do_async]=0
-  if async_start_worker roundyworker -n 2>/dev/null; then
-    Roundy[do_async]=1
-    async_register_callback roundyworker roundy_async_callback
-  fi
+  async_start_worker roundyworker -n
+  async_register_callback roundyworker roundy_async_callback
 }
 
 #
@@ -205,7 +202,8 @@ roundy_preexec() {
 roundy_precmd() {
   Roundy[data_dir]=$(roundy_get_dir)
   Roundy[data_texc]=$(roundy_get_texc)
-  if (( ${Roundy[do_async]} )); then
+  # Check for async worker availability, otherwise fallback to primitive-way
+  if zpty -t roundyworker &>/dev/null; then
     async_job roundyworker roundy_get_gitinfo "$PWD"
   else
     Roundy[data_gitinfo]=$(roundy_get_gitinfo "$PWD")
