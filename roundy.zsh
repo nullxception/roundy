@@ -151,10 +151,8 @@ roundy_draw_prompts() {
 }
 
 roundy_draw_gap() {
-  if [[ $ROUNDY_PROMPT_HAS_GAP == true ]]; then
-    [[ -n ${Roundy[draw_gap]} ]] && print
-    Roundy[draw_gap]=1
-  fi
+  [[ -n ${Roundy[draw_gap]} ]] && print
+  [[ $ROUNDY_PROMPT_HAS_GAP == true ]] && Roundy[draw_gap]=1
 }
 
 #
