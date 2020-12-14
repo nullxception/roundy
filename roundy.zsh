@@ -227,6 +227,31 @@ roundy_precmd() {
 }
 
 #
+# Main Setup
+#
+roundy_main() {
+  # Save stuff that will be overrided by the theme
+  Roundy[saved_lprompt]=$PROMPT
+  Roundy[saved_rprompt]=$RPROMPT
+  Roundy[saved_promptsubst]=${options[promptsubst]}
+  Roundy[saved_promptbang]=${options[promptbang]}
+
+  # Enable required options and fpath's functions
+  setopt prompt_subst
+  autoload -Uz add-zsh-hook
+
+  # Needed for showing command time execution
+  (( $+EPOCHSECONDS )) || zmodload zsh/datetime
+
+  # Setup Async
+  roundy_async_init
+
+  # Setup hooks
+  add-zsh-hook preexec roundy_preexec
+  add-zsh-hook precmd roundy_precmd
+}
+
+#
 # Unload function
 # https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Plugin-Standard.adoc#unload-fun
 #
@@ -250,7 +275,8 @@ roundy_plugin_unload() {
     roundy_get_txec \
     roundy_moment \
     roundy_precmd \
-    roundy_preexec
+    roundy_preexec \
+    roundy_main
 
   unset \
     ROUNDY_COLORS_BG_DIR \
@@ -275,19 +301,4 @@ roundy_plugin_unload() {
   unfunction $0
 }
 
-#
-# Main Setup
-#
-
-# Save stuff that will be overrided by the theme
-Roundy[saved_lprompt]=$PROMPT
-Roundy[saved_rprompt]=$RPROMPT
-Roundy[saved_promptsubst]=${options[promptsubst]}
-Roundy[saved_promptbang]=${options[promptbang]}
-
-setopt prompt_subst
-autoload -Uz add-zsh-hook
-(( $+EPOCHSECONDS )) || zmodload zsh/datetime # Needed for showing command time execution
-roundy_async_init
-add-zsh-hook preexec roundy_preexec
-add-zsh-hook precmd roundy_precmd
+roundy_main "$@"
