@@ -66,33 +66,26 @@ roundy_get_gitinfo() {
 }
 
 #
-# Time converter from pure
-# https://github.com/sindresorhus/pure/blob/c031f6574af3f8afb43920e32ce02ee6d46ab0e9/pure.zsh#L31-L39
-#
-roundy_moment() {
-  local moment d h m s
-
-  d=$(( $1 / 60 / 60 / 24 ))
-  h=$(( $1 / 60 / 60 % 24 ))
-  m=$(( $1 / 60 % 60 ))
-  s=$(( $1 % 60 ))
-  (( d )) && moment+="${d}d "
-  (( h )) && moment+="${h}h "
-  (( m )) && moment+="${m}m "
-  moment+="${s}s"
-
-  printf '%s' "$moment"
-}
-
-#
 # Manage time of command execution
 #
 roundy_get_texc() {
-  if (( ROUNDY_TEXC_MIN_MS )) && (( ${Roundy[raw_texc]} )); then
-    local duration=$(( EPOCHSECONDS - ${Roundy[raw_texc]} ))
-    if (( duration >= ROUNDY_TEXC_MIN_MS )); then
-      roundy_moment $duration
-    fi
+  (( ROUNDY_TEXC_MIN_MS )) && (( ${Roundy[raw_texc]} )) || return
+  local duration=$(( EPOCHSECONDS - ${Roundy[raw_texc]} ))
+  if (( duration >= ROUNDY_TEXC_MIN_MS )); then
+    # Time converter from pure
+    # https://github.com/sindresorhus/pure/blob/c031f6574af3f8afb43920e32ce02ee6d46ab0e9/pure.zsh#L31-L39
+    local moment d h m s
+
+    d=$(( duration / 60 / 60 / 24 ))
+    h=$(( duration / 60 / 60 % 24 ))
+    m=$(( duration / 60 % 60 ))
+    s=$(( duration % 60 ))
+    (( d )) && moment+="${d}d"
+    (( h )) && moment+="${h}h"
+    (( m )) && moment+="${m}m"
+    moment+="${s}s"
+
+    printf '%s' " $moment "
   fi
 }
 
@@ -138,7 +131,7 @@ roundy_draw_prompts() {
   Roundy[lprompt]="%F{${ROUNDY_COLORS_BG_EXITSTATUS}}${char_open}%f%K{${ROUNDY_COLORS_BG_EXITSTATUS}}"
   Roundy[lprompt]+="%F{${ROUNDY_COLORS_FG_EXITSTATUS}}%{%(?|${ROUNDY_EXITSTATUS_GOOD}|${ROUNDY_EXITSTATUS_BAD})%2G%}%f%k"
   if [[ -n "${Roundy[data_texc]}" ]]; then
-    Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_TEXC}}%F{${ROUNDY_COLORS_FG_TEXC}} ${Roundy[data_texc]} %f%k"
+    Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_TEXC}}%F{${ROUNDY_COLORS_FG_TEXC}}${Roundy[data_texc]}%f%k"
   fi
   Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_USER}}%F{${ROUNDY_COLORS_FG_USER}}%(#.${ROUNDY_USER_CONTENT_ROOT}.${ROUNDY_USER_CONTENT_NORMAL})%f%k"
   Roundy[lprompt]+="%F{${ROUNDY_COLORS_BG_USER}}${char_close}%f "
@@ -263,7 +256,6 @@ roundy_plugin_unload() {
     roundy_get_dir \
     roundy_get_gitinfo \
     roundy_get_txec \
-    roundy_moment \
     roundy_precmd \
     roundy_preexec \
     roundy_main
