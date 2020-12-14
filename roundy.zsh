@@ -16,9 +16,7 @@ Roundy[root]=${0:A:h}
 : ${ROUNDY_COLORS_BG_EXITSTATUS:=4}
 # Icon definition for Command's Exit Status
 : ${ROUNDY_EXITSTATUS_GOOD:=$'\ufadf'}
-: ${ROUNDY_EXITSTATUS_BAD:=$'\uf658'}
-# Enable EXITSTATUS workaround glitch
-: ${ROUNDY_EXITSTATUS_ICONFIX:=true}
+: ${ROUNDY_EXITSTATUS_BAD:=$'\uf658 '}
 
 # Options and Color definition for Time Execution Command
 : ${ROUNDY_COLORS_FG_TEXC:=0}
@@ -136,20 +134,14 @@ roundy_draw_prompts() {
   local char_open=$'\ue0b6'
   local char_close=$'\ue0b4'
 
-  # NEEDPROPERFIX: Workaround for exitstatus icon glitch
-  if $ROUNDY_EXITSTATUS_ICONFIX; then
-    local exitstatuswr1="%(?|| )"
-    local exitstatuswr2="%(?| |)"
-  fi
-
   # Left Prompt
   Roundy[lprompt]="%F{${ROUNDY_COLORS_BG_EXITSTATUS}}${char_open}%f%K{${ROUNDY_COLORS_BG_EXITSTATUS}}"
-  Roundy[lprompt]+="%F{${ROUNDY_COLORS_FG_EXITSTATUS}}%(?|${ROUNDY_EXITSTATUS_GOOD}|${ROUNDY_EXITSTATUS_BAD})$exitstatuswr1%f%k"
+  Roundy[lprompt]+="%F{${ROUNDY_COLORS_FG_EXITSTATUS}}%{%(?|${ROUNDY_EXITSTATUS_GOOD}|${ROUNDY_EXITSTATUS_BAD})%2G%}%f%k"
   if [[ -n "${Roundy[data_texc]}" ]]; then
     Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_TEXC}}%F{${ROUNDY_COLORS_FG_TEXC}} ${Roundy[data_texc]} %f%k"
   fi
   Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_USER}}%F{${ROUNDY_COLORS_FG_USER}}%(#.${ROUNDY_USER_CONTENT_ROOT}.${ROUNDY_USER_CONTENT_NORMAL})%f%k"
-  Roundy[lprompt]+="%F{${ROUNDY_COLORS_BG_USER}}${char_close}%f $exitstatuswr2"
+  Roundy[lprompt]+="%F{${ROUNDY_COLORS_BG_USER}}${char_close}%f "
 
   # Right Prompt
   Roundy[rprompt]="%F{${ROUNDY_COLORS_BG_DIR}}${char_open}%f%K{${ROUNDY_COLORS_BG_DIR}}"

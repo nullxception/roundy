@@ -39,9 +39,11 @@ Here's Default Options that currently available to override:
 
 ```sh
 # Icon definition for Command's Exit Status
+# Note: If your custom symbol overlaps the background or didn't have enough width,
+#       you can add space at the end of your defined symbol.
 ROUNDY_EXITSTATUS_GOOD="﫟"
 # You can also using hex code like this
-ROUNDY_EXITSTATUS_BAD=$'\uf658'
+ROUNDY_EXITSTATUS_BAD=$'\uf658 '
 
 # Minimal time (in ms) for the Time Execution of Command is displayed in prompt
 # Set to 0 to disable it
