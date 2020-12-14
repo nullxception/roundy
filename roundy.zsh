@@ -61,7 +61,7 @@ roundy_get_gitinfo() {
   esac
 
   if [[ -n $ref ]]; then
-    printf " ${ref#refs/heads/} "
+    printf -- '%s' " ${ref#refs/heads/} "
   fi
 }
 
@@ -85,7 +85,7 @@ roundy_get_texc() {
     (( m )) && moment+="${m}m"
     moment+="${s}s"
 
-    printf '%s' " $moment "
+    printf -- '%s' " $moment "
   fi
 }
 
@@ -113,7 +113,7 @@ roundy_get_dir() {
       ;;
   esac
 
-  printf ' %s ' "$dir"
+  printf -- '%s' " $dir "
 }
 
 #
