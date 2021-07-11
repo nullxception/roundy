@@ -52,9 +52,9 @@ roundy_get_gitinfo() {
   type git &>/dev/null || return
 
   cd -q "$1"
-  local ref=$(git symbolic-ref --quiet HEAD 2>/dev/null)
+  local ref=$(git symbolic-ref --quiet HEAD 2>/dev/null) ret=$?
 
-  case $? in
+  case $ret in
     128) return ;;  # not a git repo
     0) ;;
     *) ref=$(git rev-parse --short HEAD 2>/dev/null) || return ;; # HEAD is in detached state ?
