@@ -15,8 +15,8 @@ Roundy[root]=${0:A:h}
 : ${ROUNDY_COLORS_FG_EXITSTATUS:=0}
 : ${ROUNDY_COLORS_BG_EXITSTATUS:=4}
 # Icon definition for Command's Exit Status
-: ${ROUNDY_EXITSTATUS_GOOD:=$'\ufadf'}
-: ${ROUNDY_EXITSTATUS_BAD:=$'\uf658 '}
+: ${ROUNDY_EXITSTATUS_GOOD:=$'\uf058 '}
+: ${ROUNDY_EXITSTATUS_BAD:=$'\uf057 '}
 
 # Options and Color definition for Time Execution Command
 : ${ROUNDY_COLORS_FG_TEXC:=0}
