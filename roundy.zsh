@@ -26,14 +26,14 @@ Roundy[root]=${0:A:h}
 
 # Color definition for Active user name
 : ${ROUNDY_COLORS_FG_USER:=7}
-: ${ROUNDY_COLORS_BG_USER:=8}
+: ${ROUNDY_COLORS_BG_USER:=0}
 # Options to override username info
 : ${ROUNDY_USER_CONTENT_NORMAL:=" %n "}
 : ${ROUNDY_USER_CONTENT_ROOT:=" %n "}
 
 # Color definition for Active directory name
 : ${ROUNDY_COLORS_FG_DIR:=4}
-: ${ROUNDY_COLORS_BG_DIR:=8}
+: ${ROUNDY_COLORS_BG_DIR:=0}
 # Working Directory Info Mode
 # Valid choice are : "full", "short", or "dir-only"
 : ${ROUNDY_DIR_MODE:="dir-only"}
