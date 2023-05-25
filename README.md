@@ -4,36 +4,46 @@
 </p>
 
 # 📺 Preview
+
 ![preview-of-roundy-theme](preview.png)
-> Preview with alacritty using [cherry colorscheme](https://github.com/nullxception/dotfiles/blob/main/alacritty/colors/cherry.yml) and [JetBrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/latest)
+
+> Preview with [cherry colorscheme](https://github.com/nullxception/cherry-kde/blob/main/kitty/cherry.conf) and [JetBrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/latest)
 
 # 🧪 Required
-* [Nerd-patched](https://github.com/ryanoasis/nerd-fonts)'s Fonts
-* Terminal with unicode support.
+
+- [Nerd-patched](https://github.com/ryanoasis/nerd-fonts)'s Fonts
+- Terminal with unicode support.
 
 To check whether your terminal ready to using this theme, use this command :
+
 ```sh
 echo -e '\ue0b6\ue0b4'
 ```
+
 if it returns a circle, then we can go to the next step 🥳
 
 # 🔌 Installation
-* antigen
+
+- antigen
+
 ```zsh
 antigen bundle nullxception/roundy
 ```
 
-* zplug
+- zplug
+
 ```zsh
 zplug nullxception/roundy, use:roundy.zsh, from:github, as:theme
 ```
 
-* zinit
+- zinit
+
 ```zsh
 zinit light nullxception/roundy
 ```
 
 # 🛠 Prompt options
+
 Options in roundy are configured in a regular variable, you can override it on your `.zshrc`.
 Here's Default Options that currently available to override:
 
@@ -66,7 +76,9 @@ ROUNDY_PROMPT_HAS_GAP=true
 ```
 
 ## 🎨 Colors
+
 By nature of Zsh, colors can be specified using :
+
 - a decimal integer (0-15, or 0-255 if `$TERM` supported)
 - alias of the eight colors provided by zsh
 - or, as a regular #FFFFFF color hex (if `$TERM` supported, or with the help of `zsh/nearcolor` module)
@@ -94,8 +106,10 @@ ROUNDY_COLORS_FG_GITINFO=0
 ```
 
 # 😇 Credits
-* Inspired by [Harry Elric](https://github.com/owl4ce)'s [Joyful Desktop v3](https://github.com/owl4ce/dotfiles/tree/3.0) prompt
-* [ryanoasis](https://github.com/ryanoasis)'s [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) for half-circle and most of the awesome additional glyphs on Nerd Fonts
+
+- Inspired by [Harry Elric](https://github.com/owl4ce)'s [Joyful Desktop v3](https://github.com/owl4ce/dotfiles/tree/3.0) prompt
+- [ryanoasis](https://github.com/ryanoasis)'s [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) for half-circle and most of the awesome additional glyphs on Nerd Fonts
 
 # 📄 License
+
 Copyright © 2020 [Nauval Rizky](https://github.com/nullxception). This project is [BSD 3-Clause License](LICENSE) licensed.
