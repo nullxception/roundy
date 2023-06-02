@@ -212,6 +212,7 @@ roundy_async_init() {
 
   # Setup worker and callback
   async_start_worker roundyworker -n
+  async_worker_eval roundyworker builtin cd -q $PWD
   async_register_callback roundyworker roundy_async_callback
 }
 
