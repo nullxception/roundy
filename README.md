@@ -1,15 +1,15 @@
-<p align=center>
-    <img alt="logo-of-roundy-theme" src="roundy.png"><br>
-    fast, cute, <i>and-of-course, roundy</i> prompt theme for zsh
-</p>
+<div align=center>
+    <img alt="logo-of-roundy-theme" src="roundy.png" width="30%"><br><br>
+    fast, cute, and-of-course, <i>roundy</i> prompt theme for zsh
+</div>
 
-# 📺 Preview
+# Preview
 
 ![preview-of-roundy-theme](preview.png)
 
-> Preview with [cherry colorscheme](https://github.com/nullxception/cherry-kde/blob/main/kitty/cherry.conf) and [JetBrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/latest)
+> Using [Cherry-midnight colorscheme](https://github.com/nullxception/cherry-kde/blob/main/kitty/cherry-midnight.conf) and [JetBrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/latest)
 
-# 🧪 Required
+# Required
 
 - [Nerd-patched](https://github.com/ryanoasis/nerd-fonts)'s Fonts
 - Terminal with unicode support.
@@ -22,7 +22,7 @@ echo -e '\ue0b6\ue0b4'
 
 if it returns a circle, then we can go to the next step 🥳
 
-# 🔌 Installation
+# Installation
 
 - antigen
 
@@ -42,7 +42,7 @@ zplug nullxception/roundy, use:roundy.zsh, from:github, as:theme
 zinit light nullxception/roundy
 ```
 
-# 🛠 Prompt options
+# Options
 
 Options in roundy are configured in a regular variable, you can override it on your `.zshrc`.
 Here's Default Options that currently available to override:
@@ -75,7 +75,7 @@ ROUNDY_DIR_MODE="dir-only"
 ROUNDY_PROMPT_HAS_GAP=true
 ```
 
-## 🎨 Colors
+## Colors
 
 By nature of Zsh, colors can be specified using :
 
@@ -105,11 +105,11 @@ ROUNDY_COLORS_BG_GITINFO=5
 ROUNDY_COLORS_FG_GITINFO=0
 ```
 
-# 😇 Credits
+# Acknowledgement
 
 - Inspired by [Harry Elric](https://github.com/owl4ce)'s [Joyful Desktop v3](https://github.com/owl4ce/dotfiles/tree/3.0) prompt
 - [ryanoasis](https://github.com/ryanoasis)'s [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) for half-circle and most of the awesome additional glyphs on Nerd Fonts
 
-# 📄 License
+# License
 
 Copyright © 2020 [Nauval Rizky](https://github.com/nullxception). This project is [BSD 3-Clause License](LICENSE) licensed.
