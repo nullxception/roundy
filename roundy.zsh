@@ -189,6 +189,8 @@ roundy_prompt_right() {
 }
 
 roundy_draw_prompts() {
+  Roundy[data_dir]=$(roundy_get_dir)
+
   roundy_prompt_left
   roundy_prompt_right
 }
@@ -234,7 +236,6 @@ roundy_preexec() {
 }
 
 roundy_precmd() {
-  Roundy[data_dir]=$(roundy_get_dir)
   Roundy[data_texc]=$(roundy_get_texc)
   # Check for async worker availability, otherwise fallback to primitive-way
   if zpty -t roundyworker &>/dev/null; then
