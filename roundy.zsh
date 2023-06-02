@@ -120,34 +120,72 @@ roundy_get_dir() {
 # THE PROMPT
 #
 
-roundy_draw_prompts() {
-  local cl_open cl_close
-
-  # Symbols
+roundy_prompt_left() {
+  local p
   local char_open=$'\ue0b6'
   local char_close=$'\ue0b4'
 
-  # Left Prompt
-  Roundy[lprompt]="%F{${ROUNDY_COLORS_BG_EXITSTATUS}}${char_open}%f%K{${ROUNDY_COLORS_BG_EXITSTATUS}}"
-  Roundy[lprompt]+="%F{${ROUNDY_COLORS_FG_EXITSTATUS}}%{%(?|${ROUNDY_EXITSTATUS_GOOD}|${ROUNDY_EXITSTATUS_BAD})%2G%}%f%k"
-  if [[ -n "${Roundy[data_texc]}" ]]; then
-    Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_TEXC}}%F{${ROUNDY_COLORS_FG_TEXC}}${Roundy[data_texc]}%f%k"
-  fi
-  Roundy[lprompt]+="%K{${ROUNDY_COLORS_BG_USER}}%F{${ROUNDY_COLORS_FG_USER}}%(#.${ROUNDY_USER_CONTENT_ROOT}.${ROUNDY_USER_CONTENT_NORMAL})%f%k"
-  Roundy[lprompt]+="%F{${ROUNDY_COLORS_BG_USER}}${char_close}%f "
+  p+="%F{${ROUNDY_COLORS_BG_EXITSTATUS}}"
+  p+="${char_open}"
+  p+="%f"
+  p+="%K{${ROUNDY_COLORS_BG_EXITSTATUS}}"
+  p+="%F{${ROUNDY_COLORS_FG_EXITSTATUS}}"
+  p+="%{%(?|${ROUNDY_EXITSTATUS_GOOD}|${ROUNDY_EXITSTATUS_BAD})%2G%}"
+  p+="%f"
+  p+="%k"
 
-  # Right Prompt
-  Roundy[rprompt]="%F{${ROUNDY_COLORS_BG_DIR}}${char_open}%f%K{${ROUNDY_COLORS_BG_DIR}}"
-  Roundy[rprompt]+="%F{${ROUNDY_COLORS_FG_DIR}}${Roundy[data_dir]}%f"
+  if [[ -n "${Roundy[data_texc]}" ]]; then
+    p+="%K{${ROUNDY_COLORS_BG_TEXC}}"
+    p+="%F{${ROUNDY_COLORS_FG_TEXC}}"
+    p+="${Roundy[data_texc]}"
+    p+="%f"
+    p+="%k"
+  fi
+  p+="%K{${ROUNDY_COLORS_BG_USER}}"
+  p+="%F{${ROUNDY_COLORS_FG_USER}}"
+  p+="%(#.${ROUNDY_USER_CONTENT_ROOT}.${ROUNDY_USER_CONTENT_NORMAL})"
+  p+="%f"
+  p+="%k"
+  p+="%F{${ROUNDY_COLORS_BG_USER}}"
+  p+="${char_close}"
+  p+="%f "
+
+  Roundy[lprompt]=$p
+  typeset -g PROMPT=${Roundy[lprompt]}
+}
+
+roundy_prompt_right() {
+  local p cl_close
+  local char_open=$'\ue0b6'
+  local char_close=$'\ue0b4'
+
+  p+="%F{${ROUNDY_COLORS_BG_DIR}}"
+  p+="${char_open}"
+  p+="%f"
+  p+="%K{${ROUNDY_COLORS_BG_DIR}}"
+  p+="%F{${ROUNDY_COLORS_FG_DIR}}"
+  p+="${Roundy[data_dir]}"
+  p+="%f"
   cl_close=${ROUNDY_COLORS_BG_DIR}
   if [[ -n "${Roundy[data_gitinfo]}" ]]; then
-    Roundy[rprompt]+="%K{${ROUNDY_COLORS_BG_GITINFO}}%F{${ROUNDY_COLORS_FG_GITINFO}}${Roundy[data_gitinfo]}%f"
+    p+="%K{${ROUNDY_COLORS_BG_GITINFO}}"
+    p+="%F{${ROUNDY_COLORS_FG_GITINFO}}"
+    p+="${Roundy[data_gitinfo]}"
+    p+="%f"
     cl_close=${ROUNDY_COLORS_BG_GITINFO}
   fi
-  Roundy[rprompt]+="%k%F{${cl_close}}${char_close}%f"
+  p+="%k"
+  p+="%F{${cl_close}}"
+  p+="${char_close}"
+  p+="%f"
 
-  typeset -g PROMPT=${Roundy[lprompt]}
+  Roundy[rprompt]=$p
   typeset -g RPROMPT=${Roundy[rprompt]}
+}
+
+roundy_draw_prompts() {
+  roundy_prompt_left
+  roundy_prompt_right
 }
 
 roundy_draw_gap() {
@@ -251,6 +289,8 @@ roundy_plugin_unload() {
     roundy_async_callback \
     roundy_draw_gap \
     roundy_draw_prompts \
+    roundy_prompt_left \
+    roundy_prompt_right \
     roundy_get_dir \
     roundy_get_gitinfo \
     roundy_get_txec \
