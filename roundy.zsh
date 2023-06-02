@@ -127,24 +127,29 @@ roundy_prompt_left() {
 
   p+="%F{${ROUNDY_COLORS_BG_EXITSTATUS}}"
   p+="${char_open}"
-  p+="%f"
   p+="%K{${ROUNDY_COLORS_BG_EXITSTATUS}}"
   p+="%F{${ROUNDY_COLORS_FG_EXITSTATUS}}"
   p+="%{%(?|${ROUNDY_EXITSTATUS_GOOD}|${ROUNDY_EXITSTATUS_BAD})%2G%}"
-  p+="%f"
-  p+="%k"
+  if [ -n "${Roundy[data_texc]}" ]; then
+    p+="%K{${ROUNDY_COLORS_BG_TEXC}}"
+  else
+    p+="%K{${ROUNDY_COLORS_BG_USER}}"
+  fi
+  p+="%F{${ROUNDY_COLORS_BG_EXITSTATUS}}"
+  p+="${char_close}"
 
-  if [[ -n "${Roundy[data_texc]}" ]]; then
+  if [ -n "${Roundy[data_texc]}" ]; then
     p+="%K{${ROUNDY_COLORS_BG_TEXC}}"
     p+="%F{${ROUNDY_COLORS_FG_TEXC}}"
     p+="${Roundy[data_texc]}"
-    p+="%f"
-    p+="%k"
+    p+="%K{${ROUNDY_COLORS_BG_USER}}"
+    p+="%F{${ROUNDY_COLORS_BG_TEXC}}"
+    p+="${char_close}"
   fi
+
   p+="%K{${ROUNDY_COLORS_BG_USER}}"
   p+="%F{${ROUNDY_COLORS_FG_USER}}"
   p+="%(#.${ROUNDY_USER_CONTENT_ROOT}.${ROUNDY_USER_CONTENT_NORMAL})"
-  p+="%f"
   p+="%k"
   p+="%F{${ROUNDY_COLORS_BG_USER}}"
   p+="${char_close}"
@@ -161,17 +166,17 @@ roundy_prompt_right() {
 
   p+="%F{${ROUNDY_COLORS_BG_DIR}}"
   p+="${char_open}"
-  p+="%f"
   p+="%K{${ROUNDY_COLORS_BG_DIR}}"
   p+="%F{${ROUNDY_COLORS_FG_DIR}}"
   p+="${Roundy[data_dir]}"
-  p+="%f"
   cl_close=${ROUNDY_COLORS_BG_DIR}
   if [[ -n "${Roundy[data_gitinfo]}" ]]; then
+    p+="%K{${ROUNDY_COLORS_BG_DIR}}"
+    p+="%F{${ROUNDY_COLORS_BG_GITINFO}}"
+    p+="${char_open}"
     p+="%K{${ROUNDY_COLORS_BG_GITINFO}}"
     p+="%F{${ROUNDY_COLORS_FG_GITINFO}}"
     p+="${Roundy[data_gitinfo]}"
-    p+="%f"
     cl_close=${ROUNDY_COLORS_BG_GITINFO}
   fi
   p+="%k"
