@@ -300,7 +300,7 @@ roundy_plugin_unload() {
     roundy_prompt_right \
     roundy_get_dir \
     roundy_get_gitinfo \
-    roundy_get_txec \
+    roundy_get_texc \
     roundy_precmd \
     roundy_preexec \
     roundy_main
