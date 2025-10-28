@@ -153,7 +153,7 @@ roundy_prompt_left() {
   p+="%k"
   p+="%F{${ROUNDY_COLORS_BG_USER}}"
   p+="${char_close}"
-  p+="%f "
+  p+=" %{%f%}"
 
   Roundy[lprompt]=$p
   typeset -g PROMPT=${Roundy[lprompt]}
@@ -182,7 +182,7 @@ roundy_prompt_right() {
   p+="%k"
   p+="%F{${cl_close}}"
   p+="${char_close}"
-  p+="%f"
+  p+="%{%f%}"
 
   Roundy[rprompt]=$p
   typeset -g RPROMPT=${Roundy[rprompt]}
